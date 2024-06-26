@@ -4,6 +4,7 @@ package com.example.product_category_api.service;
 import com.example.product_category_api.repository.CategoryRepository;
 import com.example.product_category_api.entity.Category;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,9 +19,9 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     public Category getCategoryByUuid(UUID uuid) {
-        return categoryRepository.findById(uuid).orElseThrow(() -> new RuntimeException("Category not found"));
+        return categoryRepository.findByUuid(uuid)
+                .orElseThrow(() -> new EntityNotFoundException("Category not found with UUID: " + uuid));
     }
-
     public Category createCategory(Category category) {
         category.setUuid(UUID.randomUUID());
         return categoryRepository.save(category);

@@ -19,7 +19,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/{uuid}")
+    @GetMapping("/getbyUuid/{uuid}")
     public ResponseEntity<Product> getProductByUuid(@PathVariable UUID uuid) {
         Product product = productService.getProductByUuid(uuid);
         return ResponseEntity.ok(product);
@@ -41,19 +41,20 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    @PostMapping
+
+    @PostMapping("/create/")
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         Product createdProduct = productService.createProduct(product);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{uuid}")
+    @PatchMapping("/update/{uuid}")
     public ResponseEntity<Product> updateProduct(@PathVariable UUID uuid, @RequestBody Product product) {
         Product updatedProduct = productService.updateProduct(uuid, product);
         return ResponseEntity.ok(updatedProduct);
     }
 
-    @DeleteMapping("/{uuid}")
+    @DeleteMapping("/delete/{uuid}")
     public ResponseEntity<Void> deleteProduct(@PathVariable UUID uuid) {
         productService.deleteProduct(uuid);
         return ResponseEntity.noContent().build();

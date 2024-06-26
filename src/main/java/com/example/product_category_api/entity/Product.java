@@ -1,5 +1,6 @@
 package com.example.product_category_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,7 +22,7 @@ public class Product {
     @Column(nullable = false, unique = true)
     private UUID uuid;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String title;
 
     @Column(nullable = false)
@@ -29,7 +30,9 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnore
     private Category category;
+
 
     @Column(nullable = false)
     private BigDecimal price;
@@ -44,4 +47,5 @@ public class Product {
 
     @Column(name = "is_enabled", nullable = false)
     private boolean isEnabled;
+
 }

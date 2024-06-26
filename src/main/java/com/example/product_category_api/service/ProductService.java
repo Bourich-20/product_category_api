@@ -3,6 +3,7 @@ package com.example.product_category_api.service;
 
 import com.example.product_category_api.repository.ProductRepository;
 import com.example.product_category_api.entity.Product;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,7 +20,8 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public Product getProductByUuid(UUID uuid) {
-        return productRepository.findById(uuid).orElseThrow(() -> new RuntimeException("Product not found"));
+        return productRepository.findByUuid(uuid)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found with UUID: " + uuid));
     }
 
     public Product createProduct(Product product) {

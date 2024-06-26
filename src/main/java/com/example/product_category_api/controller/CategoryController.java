@@ -20,7 +20,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/{uuid}")
+    @GetMapping("/getbyUuid/{uuid}")
     public ResponseEntity<Category> getCategoryByUuid(@PathVariable UUID uuid) {
         Category category = categoryService.getCategoryByUuid(uuid);
         return ResponseEntity.ok(category);
@@ -40,13 +40,13 @@ public class CategoryController {
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{uuid}")
+    @PutMapping("/update/{uuid}")
     public ResponseEntity<Category> updateCategory(@PathVariable UUID uuid, @RequestBody Category category) {
         Category updatedCategory = categoryService.updateCategory(uuid, category);
         return ResponseEntity.ok(updatedCategory);
     }
 
-    @DeleteMapping("/{uuid}")
+    @DeleteMapping("/delete/{uuid}")
     public ResponseEntity<Void> deleteCategory(@PathVariable UUID uuid) {
         categoryService.deleteCategory(uuid);
         return ResponseEntity.noContent().build();
